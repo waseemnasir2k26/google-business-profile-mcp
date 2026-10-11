@@ -8,7 +8,7 @@
 
 A Model Context Protocol (MCP) server for your Google Business Profile (formerly Google My Business). It reads reviews, drafts replies, pulls performance metrics and scores your profile for local SEO. Every write (reply or post) is blocked by default and needs a single-use approval token that a human mints for that exact text.
 
-> **Google approval required.** The Business Profile APIs are not open to everyone. You must request and receive API access for your Google Cloud project from Google before any call works. Until then the server cannot reach your data. The offline demo and the test suite do not need access. See [Google's prerequisites](https://developers.google.com/my-business/content/prerequisites).
+> **Google approval required.** The Business Profile APIs are not open to everyone. You must request and receive API access for your Google Cloud project from Google before any call works. Until then the server cannot reach your data. The offline demo and the test suite do not need access. See [Google's prerequisites](https://developers.google.com/my-business/content/prereqs).
 
 ## 60-second quickstart
 
