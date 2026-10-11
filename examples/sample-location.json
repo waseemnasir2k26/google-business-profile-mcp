@@ -1,0 +1,70 @@
+{
+  "_note": "Fictional sample data for the offline demo. Not a real business.",
+  "location": {
+    "name": "locations/1000000001",
+    "title": "Example Plumbing Co (sample)",
+    "categories": {
+      "primaryCategory": {
+        "name": "categories/gcid:plumber",
+        "displayName": "Plumber"
+      },
+      "additionalCategories": []
+    },
+    "profile": { "description": "Local plumbers. Call us for repairs." },
+    "regularHours": {
+      "periods": [
+        { "openDay": "MONDAY" },
+        { "openDay": "TUESDAY" },
+        { "openDay": "WEDNESDAY" },
+        { "openDay": "THURSDAY" },
+        { "openDay": "FRIDAY" }
+      ]
+    },
+    "specialHours": {},
+    "phoneNumbers": { "primaryPhone": "+1 555 0100" },
+    "websiteUri": "https://example.com/",
+    "serviceItems": [
+      { "freeFormServiceItem": { "label": { "displayName": "Leak repair" } } },
+      {
+        "freeFormServiceItem": { "label": { "displayName": "Drain cleaning" } }
+      }
+    ]
+  },
+  "media_count": 6,
+  "attributes": {
+    "attributes": [{ "name": "attributes/has_wheelchair_accessible_entrance" }]
+  },
+  "questions": { "totalSize": 0, "questions": [] },
+  "reviews": [
+    {
+      "name": "accounts/1/locations/1000000001/reviews/r1",
+      "reviewer": { "displayName": "Sam Example" },
+      "starRating": "FIVE",
+      "comment": "Fast and tidy.",
+      "updateTime": "2026-10-08T09:00:00Z",
+      "reviewReply": { "comment": "Thanks Sam!" }
+    },
+    {
+      "name": "accounts/1/locations/1000000001/reviews/r2",
+      "reviewer": { "displayName": "Alex Sample" },
+      "starRating": "TWO",
+      "comment": "Arrived late.",
+      "updateTime": "2026-10-09T09:00:00Z"
+    },
+    {
+      "name": "accounts/1/locations/1000000001/reviews/r3",
+      "reviewer": { "displayName": "Jo Demo" },
+      "starRating": "FIVE",
+      "comment": "",
+      "updateTime": "2026-10-10T09:00:00Z"
+    },
+    {
+      "name": "accounts/1/locations/1000000001/reviews/r4",
+      "reviewer": { "displayName": "Pat Test" },
+      "starRating": "FOUR",
+      "comment": "Good price.",
+      "updateTime": "2026-10-11T09:00:00Z",
+      "reviewReply": { "comment": "Thank you Pat." }
+    }
+  ]
+}

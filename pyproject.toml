@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gbp-mcp"
+version = "1.0.0"
+description = "Google Business Profile MCP server for local SEO: reviews, approve-gated reply drafts, posts, performance metrics, profile completeness audit."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Waseem Nasir" }]
+keywords = ["google-business-profile", "mcp", "local-seo", "reviews", "claude"]
+dependencies = ["mcp>=1.2,<2", "httpx>=0.27", "pyyaml>=6"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "respx>=0.21"]
+
+[project.scripts]
+gbp-mcp = "gbp_mcp.server:main"
+gbp-mcp-approve = "gbp_mcp.approve:main"
+gbp-mcp-demo = "gbp_mcp.cli:demo_main"
+
+[tool.setuptools]
+packages = ["gbp_mcp"]
+
+[tool.setuptools.package-data]
+gbp_mcp = ["templates/*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

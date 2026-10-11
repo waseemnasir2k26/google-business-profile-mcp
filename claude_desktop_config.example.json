@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "google-business-profile": {
+      "command": "python",
+      "args": ["-m", "gbp_mcp.server"],
+      "env": {
+        "GBP_CLIENT_ID": "your-oauth-client-id.apps.googleusercontent.com",
+        "GBP_CLIENT_SECRET": "your-oauth-client-secret",
+        "GBP_ACCOUNT_ID": "accounts/1234567890",
+        "WRITE_ENABLED": "false",
+        "GBP_DAILY_WRITE_CAP": "10"
+      }
+    }
+  }
+}

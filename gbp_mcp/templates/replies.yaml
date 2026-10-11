@@ -1,0 +1,32 @@
+# Reply templates. Placeholders: {name} reviewer first name.
+# Chosen deterministically from the review id so drafts are reproducible.
+tones:
+  friendly:
+    positive:
+      - "Thanks so much, {name}! We're delighted you had a great experience. See you again soon!"
+      - "Hi {name}, thank you for the kind words. It means a lot to the whole team."
+    neutral:
+      - "Thanks for the feedback, {name}. We'd love to know what would have made it a 5-star visit, so please get in touch."
+    negative:
+      - "Hi {name}, we're really sorry this fell short. We'd like to put it right. Please contact us directly so we can help."
+    no_comment:
+      - "Thanks for the rating, {name}! If there's anything we can do better, we'd love to hear it."
+  professional:
+    positive:
+      - "Thank you for your review, {name}. We appreciate your support and look forward to serving you again."
+      - "Dear {name}, thank you for the positive feedback. We are pleased the service met your expectations."
+    neutral:
+      - "Thank you for your feedback, {name}. We take it seriously and welcome the chance to discuss how we can improve."
+    negative:
+      - "Dear {name}, we apologise that your experience did not meet our standards. Please contact us so we can look into this properly."
+    no_comment:
+      - "Thank you for rating us, {name}. We welcome any further feedback."
+  warm:
+    positive:
+      - "Wow, thank you {name}! Reviews like yours make our day. Hope to see you again very soon."
+    neutral:
+      - "Thank you {name}, we appreciate you taking the time. We'd love a chance to earn a higher rating next time."
+    negative:
+      - "{name}, we're truly sorry. That is not the experience we want anyone to have. Please reach out so we can make it right."
+    no_comment:
+      - "Thank you for the rating, {name}! We're grateful for your support."

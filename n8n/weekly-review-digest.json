@@ -1,0 +1,87 @@
+{
+  "name": "GBP weekly review digest (approval-gated)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "weeks", "triggerAtDay": [1], "triggerAtHour": 8 }
+          ]
+        }
+      },
+      "id": "a1000000-0000-4000-8000-000000000001",
+      "name": "Every Monday 08:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://mybusiness.googleapis.com/v4/{{ $env.GBP_LOCATION }}/reviews",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "pageSize", "value": "50" },
+            { "name": "orderBy", "value": "updateTime desc" }
+          ]
+        }
+      },
+      "id": "a1000000-0000-4000-8000-000000000002",
+      "name": "Fetch reviews",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const days = 7;\nconst cutoff = Date.now() - days * 86400000;\nconst stars = {ONE:1,TWO:2,THREE:3,FOUR:4,FIVE:5};\nconst reviews = ($input.first().json.reviews || []).filter(r => !r.reviewReply && new Date(r.updateTime).getTime() >= cutoff);\nconst draft = (r) => {\n  const n = stars[r.starRating] || 0;\n  const first = ((r.reviewer||{}).displayName || 'there').split(' ')[0];\n  if (!r.comment) return `Thanks for the rating, ${first}! If there is anything we can do better, we would love to hear it.`;\n  if (n >= 4) return `Thanks so much, ${first}! We are delighted you had a great experience.`;\n  if (n === 3) return `Thanks for the feedback, ${first}. We would love to know how we can earn 5 stars next time.`;\n  return `Hi ${first}, we are sorry this fell short. Please contact us directly so we can put it right.`;\n};\nconst lines = reviews.map(r => `${stars[r.starRating]||'?'} stars - ${(r.reviewer||{}).displayName||'Anonymous'}: ${r.comment||'(no text)'}\\n  DRAFT: ${draft(r)}\\n  APPROVE: python -m gbp_mcp.approve reply --review-id ${r.name} --text \"${draft(r).replace(/\"/g,'\\\\\"')}\"`);\nreturn [{json: {count: reviews.length, digest: lines.join('\\n\\n') || 'No unanswered reviews this week.'}}];"
+      },
+      "id": "a1000000-0000-4000-8000-000000000003",
+      "name": "Draft replies (template)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 0]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_CHANNEL_ID",
+          "mode": "id"
+        },
+        "text": "=GBP weekly review digest: {{ $json.count }} unanswered review(s).\n\n{{ $json.digest }}\n\nNothing is posted until a human mints an approve token."
+      },
+      "id": "a1000000-0000-4000-8000-000000000004",
+      "name": "Send digest to Slack for approval",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [720, 0]
+    }
+  ],
+  "connections": {
+    "Every Monday 08:00": {
+      "main": [[{ "node": "Fetch reviews", "type": "main", "index": 0 }]]
+    },
+    "Fetch reviews": {
+      "main": [
+        [{ "node": "Draft replies (template)", "type": "main", "index": 0 }]
+      ]
+    },
+    "Draft replies (template)": {
+      "main": [
+        [
+          {
+            "node": "Send digest to Slack for approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": { "executionOrder": "v1" }
+}
